@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xưởng Trợ Lý AI — Bamboo Branding</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LPMNFE1GFZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LPMNFE1GFZ');
+
+  // Track custom events
+  function trackEvent(name, params) {
+    if (typeof gtag !== 'undefined') gtag('event', name, params || {});
+  }
+</script>
+<style>
+  :root {
+    --bg: #F2F4F1;
+    --ink: #1A2332;
+    --jade: #0E7A5F;
+    --jade-dark: #0A5C47;
+    --amber: #E8A33D;
+    --paper: #FFFFFF;
+    --line: #DDE2DC;
+    --soft: #5C6B66;
+    --font: 'Be Vietnam Pro', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: var(--paper); border-bottom: 1px solid var(--line); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon { width: 34px; height: 34px; background: var(--jade); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo-text { font-size: 15px; font-weight: 800; letter-spacing: -0.02em; }
+  .logo-sub { font-size: 11px; color: var(--soft); font-weight: 500; }
+  .nav-tabs { display: flex; gap: 4px; background: var(--bg); border-radius: 10px; padding: 3px; }
+  .nav-tab { padding: 6px 14px; border-radius: 8px; border: none; background: transparent; font-family: var(--font); font-size: 13px; font-weight: 600; color: var(--soft); cursor: pointer; transition: all .15s; }
+  .nav-tab.active { background: var(--paper); color: var(--ink); box-shadow: 0 1px 3px rgba(26,35,50,.1); }
+
+  /* MAIN */
+  .main { max-width: 780px; margin: 0 auto; padding: 20px 16px 40px; }
+
+  /* LIBRARY */
+  .lib-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+  .lib-title { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+  .lib-count { font-size: 12px; color: var(--soft); }
+  .lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .lib-empty { background: var(--paper); border: 1.5px dashed var(--line); border-radius: 18px; padding: 50px 24px; text-align: center; }
+  .lib-empty-icon { font-size: 44px; margin-bottom: 10px; }
+  .lib-empty-title { font-weight: 800; font-size: 17px; margin-bottom: 6px; }
+  .lib-empty-desc { font-size: 13.5px; color: var(--soft); margin-bottom: 20px; max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+  .lib-empty-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 10px; transition: box-shadow .15s; }
+  .card:hover { box-shadow: 0 4px 16px rgba(26,35,50,.08); }
+  .card-top { display: flex; align-items: flex-start; gap: 10px; }
+  .card-emoji { font-size: 30px; }
+  .card-name { font-weight: 800; font-size: 15.5px; letter-spacing: -0.01em; }
+  .card-tagline { font-size: 12.5px; color: var(--soft); line-height: 1.4; margin-top: 2px; }
+  .card-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; }
+
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 9px 16px; border-radius: 10px; border: none; font-family: var(--font); font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn-primary { background: var(--jade); color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: var(--jade-dark); }
+  .btn-amber { background: var(--amber); color: var(--ink); }
+  .btn-amber:hover:not(:disabled) { filter: brightness(.93); }
+  .btn-outline { background: var(--paper); color: var(--jade-dark); border: 2px solid var(--jade); }
+  .btn-outline:hover:not(:disabled) { background: #EAF4F0; }
+  .btn-ghost { background: transparent; color: var(--soft); border: 1.5px solid var(--line); font-size: 12.5px; padding: 7px 12px; }
+  .btn-ghost:hover:not(:disabled) { background: var(--bg); color: var(--ink); }
+  .btn-danger { background: transparent; color: #A0492E; border: 1.5px solid #E8C4B4; font-size: 12.5px; padding: 7px 12px; }
+  .btn-danger:hover:not(:disabled) { background: #FDF1EE; }
+  .btn-sm { padding: 7px 12px; font-size: 12.5px; border-radius: 8px; }
+  .btn-full { width: 100%; }
+
+  /* BADGES */
+  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .badge-web { color: var(--jade-dark); background: #EAF4F0; border: 1px solid var(--jade); }
+  .badge-drive { color: #7A5A12; background: #FBF3E2; border: 1px solid var(--amber); }
+
+  /* CHAT */
+  .chat-wrap { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; height: calc(100vh - 180px); min-height: 420px; }
+  .chat-header { padding: 12px 18px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; background: #FAFBF9; gap: 10px; flex-wrap: wrap; }
+  .chat-header-info { display: flex; align-items: center; gap: 10px; }
+  .chat-header-emoji { font-size: 24px; }
+  .chat-header-name { font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  .chat-header-status { font-size: 11.5px; color: var(--jade); font-weight: 600; }
+  .chat-header-actions { display: flex; gap: 8px; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 18px 18px 6px; }
+  .chat-input-area { border-top: 1px solid var(--line); padding: 14px; background: #FAFBF9; display: flex; gap: 10px; }
+  .chat-input { flex: 1; padding: 10px 14px; border-radius: 10px; border: 1.5px solid var(--line); font-family: var(--font); font-size: 14px; color: var(--ink); outline: none; background: var(--paper); }
+  .chat-input:focus { border-color: var(--jade); }
+
+  /* BUBBLES */
+  .bubble-wrap { display: flex; flex-direction: column; margin-bottom: 12px; }
+  .bubble-wrap.user { align-items: flex-end; }
+  .bubble-wrap.assistant { align-items: flex-start; }
+  .bubble { max-width: 85%; padding: 10px 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; }
+  .bubble.user { background: var(--ink); color: #fff; border-radius: 16px 16px 4px 16px; }
+  .bubble.assistant { background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 16px 16px 16px 4px; border-left: 3px solid var(--jade); box-shadow: 0 1px 2px rgba(26,35,50,.05); }
+  .bubble-tools { font-size: 11px; color: var(--jade); font-weight: 700; margin-bottom: 4px; display: flex; gap: 6px; }
+
+  /* TYPING */
+  .typing { display: flex; align-items: center; gap: 8px; padding: 10px 14px; }
+  .typing-dots { display: flex; gap: 5px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--jade); animation: pulse 1.2s infinite; opacity: .4; }
+  .dot:nth-child(2) { animation-delay: .18s; }
+  .dot:nth-child(3) { animation-delay: .36s; }
+  @keyframes pulse { 0%,100%{opacity:.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.2)} }
+
+  /* CHIPS */
+  .chip { padding: 8px 12px; border-radius: 999px; border: 1.5px solid var(--jade); background: transparent; color: var(--jade-dark); font-size: 12.5px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: background .15s; }
+  .chip:hover { background: #EAF4F0; }
+  .chips-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+  /* CREATE HINT */
+  .create-hint { font-size: 11.5px; color: var(--soft); text-align: center; margin-top: 6px; }
+
+  /* BUILD BTN AREA */
+  .build-area { border-top: 1px solid var(--line); padding: 14px; background: #FAFBF9; }
+  .build-row { display: flex; gap: 10px; }
+  .build-action { margin-top: 10px; }
+
+  /* BLUEPRINT */
+  .blueprint-wrap { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 24px; position: relative; overflow: hidden; }
+  .stamp { position: absolute; top: 18px; right: 18px; border: 2.5px solid var(--jade); color: var(--jade); border-radius: 8px; padding: 4px 12px; font-weight: 800; font-size: 12px; letter-spacing: .12em; transform: rotate(-8deg); }
+  .bp-top { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+  .bp-emoji { font-size: 40px; }
+  .bp-name-input { font-size: 22px; font-weight: 800; border: none; background: transparent; font-family: var(--font); color: var(--ink); outline: none; width: 100%; letter-spacing: -0.02em; }
+  .bp-tagline-input { font-size: 13.5px; color: var(--soft); border: none; background: transparent; font-family: var(--font); outline: none; width: 100%; margin-top: 2px; }
+  .bp-audience { display: inline-block; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 12.5px; color: var(--soft); margin: 8px 0 16px; }
+  .bp-section-label { font-size: 12px; font-weight: 700; letter-spacing: .08em; color: var(--soft); margin-bottom: 8px; }
+  .bp-toggles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .toggle-btn { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px 14px; border-radius: 12px; cursor: pointer; font-family: var(--font); transition: all .15s; border: 1.5px solid var(--line); background: var(--paper); }
+  .toggle-btn.on { border-color: var(--jade); background: #EAF4F0; }
+  .toggle-icon { font-size: 22px; }
+  .toggle-label { font-weight: 700; font-size: 13.5px; color: var(--ink); display: block; }
+  .toggle-desc { font-size: 12px; color: var(--soft); display: block; }
+  .toggle-track { width: 40px; height: 22px; border-radius: 999px; position: relative; flex-shrink: 0; transition: background .15s; background: #C9D1CC; }
+  .toggle-btn.on .toggle-track { background: var(--jade); }
+  .toggle-thumb { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: left .15s; }
+  .toggle-btn.on .toggle-thumb { left: 20px; }
+  .bp-prompt { width: 100%; padding: 14px; border-radius: 12px; border: 1.5px solid var(--line); font-family: var(--font); font-size: 13.5px; line-height: 1.6; color: var(--ink); outline: none; resize: vertical; background: #FAFBF9; }
+  .bp-prompt:focus { border-color: var(--jade); }
+  .bp-questions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bp-q { padding: 8px 12px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); font-size: 13px; font-family: var(--font); }
+  .bp-actions { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+
+  /* SAMPLE QUESTIONS in run view */
+  .sample-questions { text-align: center; padding: 30px 16px; }
+  .sq-emoji { font-size: 44px; margin-bottom: 8px; }
+  .sq-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+  .sq-desc { font-size: 13px; color: var(--soft); margin-bottom: 18px; }
+  .sq-list { display: flex; flex-direction: column; gap: 8px; max-width: 460px; margin: 0 auto; }
+  .sq-btn { padding: 11px 14px; border-radius: 12px; border: 1.5px solid var(--jade); background: transparent; color: var(--jade-dark); font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: var(--font); text-align: left; transition: background .15s; }
+  .sq-btn:hover { background: #EAF4F0; }
+
+  /* ERROR */
+  .error-bar { background: #FDF1EE; border: 1px solid #E8C4B4; border-radius: 10px; padding: 10px 14px; font-size: 13.5px; color: #A0492E; margin-bottom: 14px; }
+
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(26,35,50,.45); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 16px; }
+  .modal-box { background: var(--paper); border-radius: 18px; padding: 26px; max-width: 440px; width: 100%; }
+  .modal-icon { font-size: 30px; margin-bottom: 8px; }
+  .modal-title { font-weight: 800; font-size: 18px; margin-bottom: 6px; }
+  .modal-desc { font-size: 13.5px; color: var(--soft); line-height: 1.55; margin-bottom: 8px; }
+  .modal-warn { font-size: 12px; color: #8A6A1F; background: #FBF3E2; border: 1px solid var(--amber); border-radius: 10px; padding: 8px 12px; margin-bottom: 16px; }
+  .modal-btns { display: flex; gap: 10px; }
+  .code-display { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 2px dashed var(--jade); border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; }
+  .code-text { font-size: 26px; font-weight: 800; letter-spacing: .25em; color: var(--jade-dark); flex: 1; text-align: center; }
+  .import-input { width: 100%; padding: 14px; border-radius: 10px; border: 1.5px solid var(--line); font-family: var(--font); font-size: 20px; font-weight: 800; letter-spacing: .25em; text-align: center; color: var(--ink); outline: none; margin-bottom: 14px; }
+  .import-input:focus { border-color: var(--jade); }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 13.5px; font-weight: 600; z-index: 60; box-shadow: 0 6px 20px rgba(26,35,50,.3); pointer-events: none; opacity: 0; transition: opacity .2s; }
+  .toast.show { opacity: 1; }
+
+  @media (max-width: 480px) {
+    .nav-tab { padding: 5px 10px; font-size: 12px; }
+    .lib-grid { grid-template-columns: 1fr; }
+    .bp-top { flex-direction: column; }
+    .bp-name-input { font-size: 18px; }
+  }
+
+  /* TINH CHỈNH PANEL */
+  .refine-overlay { position: fixed; inset: 0; background: rgba(26,35,50,.35); z-index: 40; display: flex; align-items: flex-end; justify-content: center; }
+  .refine-panel { background: var(--paper); border-radius: 20px 20px 0 0; width: 100%; max-width: 780px; height: 70vh; display: flex; flex-direction: column; box-shadow: 0 -8px 40px rgba(26,35,50,.15); }
+  .refine-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .refine-title { font-size: 15px; font-weight: 800; letter-spacing: -0.01em; }
+  .refine-subtitle { font-size: 12px; color: var(--soft); margin-top: 2px; }
+  .refine-msgs { flex: 1; overflow-y: auto; padding: 16px 20px 8px; }
+  .refine-pending { background: #EAF4F0; border: 1.5px solid var(--jade); border-radius: 14px; padding: 14px 16px; margin: 10px 0; }
+  .refine-pending-label { font-size: 11px; font-weight: 700; color: var(--jade-dark); letter-spacing: .06em; margin-bottom: 6px; }
+  .refine-pending-explanation { font-size: 13px; color: var(--ink); margin-bottom: 10px; line-height: 1.5; }
+  .refine-pending-prompt { font-size: 12px; color: var(--soft); background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; line-height: 1.6; max-height: 140px; overflow-y: auto; margin-bottom: 10px; white-space: pre-wrap; font-family: var(--font); }
+  .refine-pending-actions { display: flex; gap: 8px; }
+  .refine-input-area { border-top: 1px solid var(--line); padding: 14px 20px; background: #FAFBF9; flex-shrink: 0; display: flex; gap: 10px; }
+  .layer-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .layer-tag { padding: 5px 10px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); font-size: 11.5px; font-weight: 600; color: var(--soft); cursor: pointer; font-family: var(--font); transition: all .15s; }
+  .layer-tag:hover { background: #EAF4F0; color: var(--jade-dark); border-color: var(--jade); }
+
+  /* FOOTER CỐ ĐỊNH */
+  .app-footer { background: var(--paper); border-top: 1px solid var(--line); padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; position: sticky; bottom: 0; z-index: 9; }
+  .footer-brand { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--soft); }
+  .footer-brand b { color: var(--ink); }
+  .footer-zalo { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; background: #0068FF; color: #fff; text-decoration: none; transition: opacity .15s; }
+  .footer-zalo:hover { opacity: .85; }
+
+  /* NÚT LIÊN HỆ HEADER */
+  .btn-zalo { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 8px; background: #0068FF; color: #fff; border: none; font-family: var(--font); font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: none; transition: opacity .15s; }
+  .btn-zalo:hover { opacity: .85; }
+
+  /* BANNER CTA */
+  .cta-banner { background: linear-gradient(135deg, #0A5C47 0%, #0E7A5F 100%); border-radius: 14px; padding: 16px 18px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .cta-banner-text { color: #fff; }
+  .cta-banner-title { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+  .cta-banner-desc { font-size: 12px; opacity: .85; }
+  .cta-banner-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; background: var(--amber); color: var(--ink); font-family: var(--font); font-size: 12.5px; font-weight: 800; text-decoration: none; white-space: nowrap; transition: filter .15s; cursor: pointer; border: none; }
+  .cta-banner-btn:hover { filter: brightness(.93); }
+
+  /* SHARE LINK */
+  .share-link-box { background: var(--bg); border: 1.5px dashed var(--jade); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .share-link-url { flex: 1; font-size: 12px; color: var(--jade-dark); font-weight: 600; word-break: break-all; }
+  .share-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+  .share-tab { padding: 5px 12px; border-radius: 999px; border: 1.5px solid var(--line); background: transparent; font-family: var(--font); font-size: 12px; font-weight: 600; color: var(--soft); cursor: pointer; transition: all .15s; }
+  .share-tab.active { background: var(--jade); color: #fff; border-color: var(--jade); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">🌱</div>
+    <div>
+      <div class="logo-text">Xưởng Trợ Lý AI</div>
+      <div class="logo-sub">Bamboo Branding</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <nav class="nav-tabs">
+      <button class="nav-tab active" id="tab-library" onclick="switchTab('library')">Thư viện</button>
+      <button class="nav-tab" id="tab-create" onclick="switchTab('create')">＋ Tạo mới</button>
+    </nav>
+    <a class="btn-zalo" href="https://zalo.me/0814458686" target="_blank">💬 Tư vấn</a>
+  </div>
+</header>
+
+<main class="main" id="main-content"></main>
+
+<footer class="app-footer">
+  <div class="footer-brand">
+    🌱 <span>Được tạo bởi <b>Bamboo Branding</b> — Mai Nguyễn · Giúp phụ nữ U40 biến kinh nghiệm thành thu nhập bằng AI</span>
+  </div>
+  <a class="footer-zalo" href="https://zalo.me/0814458686" target="_blank">
+    💬 Liên hệ: 0814458686
+  </a>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============ STATE ============
+let state = {
+  view: 'library',       // library | create | run
+  library: JSON.parse(localStorage.getItem('xuong_lib_v1') || '[]'),
+  brainMsgs: [{
+    role: 'assistant',
+    content: 'Chào bạn! Mình là Kiến trúc sư AI 👋\n\nMình sẽ cùng bạn thiết kế một trợ lý AI riêng cho công việc của bạn — không cần biết code.\n\nTrước tiên: bạn đang làm trong lĩnh vực nào, và có vấn đề gì lặp đi lặp lại muốn AI giúp xử lý? (ví dụ: trả lời tin nhắn khách, soạn hợp đồng, lên thực đơn, chấm bài...)',
+  }],
+  createStep: 1,         // 1=brainstorm, 2=blueprint
+  blueprint: null,
+  editingId: null,
+  runAssistant: null,
+  testMsgs: [],
+  loading: false,
+  building: false,
+  testLoading: false,
+  error: '',
+  pubModal: null,        // {assistant, code, done, busy}
+  importOpen: false,
+  importCode: '',
+  importBusy: false,
+  // Tinh chỉnh sau khi lưu
+  refineOpen: false,      // panel tinh chỉnh mở/đóng
+  refineMsgs: [],         // lịch sử chat tinh chỉnh
+  refineLoading: false,
+  refinePending: null,    // {system_prompt, explanation} chờ áp dụng
+};
+
+// ============ SAVE ============
+function saveLib() {
+  localStorage.setItem('xuong_lib_v1', JSON.stringify(state.library));
+}
+
+// ============ API — Gemini qua Proxy ============
+async function callClaude({ messages, system, useWeb }) {
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages,
+      system,
+      model: 'gemini-2.0-flash',
+    }),
+  });
+
+  const data = await res.json();
+  if (data.error) throw new Error(data.error);
+  return { text: data.text, toolsUsed: [] };
+}
+
+const BRAINSTORM_SYSTEM = "Ban la Kien truc su tro ly AI - chuyen gia tu van than thien, noi tieng Viet tu nhien, giup nguoi dung (KHONG biet code) thiet ke mot tro ly AI giai quyet van de cu the trong cong viec cua ho.\n\nNhiem vu:\n1. Hieu ro: nganh nghe, van de cu the, ai se dung tro ly, tro ly can lam gi hang ngay.\n2. Moi luot CHI hoi 1 cau hoi, ngan gon, kem vi du goi y trong ngoac.\n3. Neu nguoi dung mo ho, goi y 2-3 huong cu the de ho chon.\n4. Sau 3-5 luot da du thong tin, tom tat ngan bang gach dau dong va noi: Minh da du thong tin roi! Ban bam nut Tao ban thiet ke ben duoi nhe.\n\nGiong van: gan gui, khich le, khong thuat ngu ky thuat. Tra loi duoi 120 tu moi luot. Luon viet tieng Viet co dau day du.";
+
+const BLUEPRINT_SYSTEM = "Ban la chuyen gia thiet ke tro ly AI. Dua tren cuoc tro chuyen brainstorm, tao ban thiet ke theo Framework 7 Lop.\n\nCHI tra ve JSON hop le, KHONG loi mo dau, KHONG markdown backticks:\n{\"name\":\"Ten tro ly ngan gon tieng Viet\",\"emoji\":\"1 emoji\",\"tagline\":\"1 cau mo ta nhiem vu\",\"audience\":\"Ai su dung\",\"need_web\":false,\"need_drive\":false,\"system_prompt\":\"LOP 1 VAI TRO: [ten vai tro va chuyen mon].\\nLOP 2 MUC TIEU: Nhiem vu chinh la [lam gi cu the].\\nLOP 3 NGUOI DUNG: [ai dung], can [ket qua gi].\\nLOP 4 DU LIEU NEN: Hieu san [thong tin nen].\\nLOP 5 QUY TRINH: Khi nhan yeu cau: [buoc 1] -> [buoc 2] -> [buoc 3].\\nLOP 6 DAU RA: Tra loi phai [dinh dang, giong van, do dai].\\nLOP 7 GIOI HAN: Khong lam [dieu X]. Neu khong biet: [phan hoi du phong].\",\"sample_questions\":[\"cau hoi mau 1\",\"cau hoi mau 2\",\"cau hoi mau 3\"]}\n\nQUAN TRONG: system_prompt toi da 220 tu. JSON phai hop le hoan toan. Viet tieng Viet co dau trong tat ca cac truong.";
+
+const REFINE_SYSTEM = "Ban la chuyen gia tinh chinh tro ly AI theo Framework 7 Lop. Nguoi dung dua ra yeu cau chinh sua - ban hieu y dinh, cap nhat system_prompt, tra ve ban moi.\n\nFramework 7 Lop can du: Vai tro, Muc tieu, Nguoi dung, Du lieu nen, Quy trinh xu ly, Tieu chuan dau ra, Gioi han.\n\nCHI tra ve JSON, KHONG backticks: {\"explanation\":\"1-2 cau giai thich thay doi\",\"system_prompt\":\"[cap nhat du 7 lop, toi da 220 tu, tieng Viet co dau\"}";
+
+
+function extractJSON(raw) {
+  let s = raw.replace(/```json|```/g, '').trim();
+  const a = s.indexOf('{');
+  if (a === -1) throw new Error('Không tìm thấy dữ liệu JSON');
+  const b = s.lastIndexOf('}');
+  if (b > a) {
+    try { return JSON.parse(s.slice(a, b + 1)); } catch(e) {}
+  }
+  let frag = s.slice(a), inStr = false, esc = false;
+  const stack = [];
+  for (const ch of frag) {
+    if (esc) { esc = false; continue; }
+    if (ch === '\\') { esc = true; continue; }
+    if (ch === '"') { inStr = !inStr; continue; }
+    if (!inStr) {
+      if (ch === '{') stack.push('}');
+      else if (ch === '[') stack.push(']');
+      else if (ch === '}' || ch === ']') stack.pop();
+    }
+  }
+  if (inStr) frag += '"';
+  frag = frag.replace(/,\s*$/, '');
+  while (stack.length) frag += stack.pop();
+  return JSON.parse(frag);
+}
+
+const BRAINSTORM_CHIPS = [
+  'Shop online: trả lời khách & chốt đơn',
+  'Giáo viên: soạn giáo án & ra đề',
+  'Nhà hàng: lên thực đơn & tính chi phí',
+  'Văn phòng: viết email & báo cáo',
+];
+
+const LAYER_SHORTCUTS = [
+  { label: '🎭 Lớp 1 — Vai trò', prompt: 'Hãy làm rõ hơn vai trò và chuyên môn của trợ lý' },
+  { label: '🎯 Lớp 2 — Mục tiêu', prompt: 'Hãy cập nhật lại mục tiêu sử dụng cụ thể hơn' },
+  { label: '👤 Lớp 3 — Người dùng', prompt: 'Hãy mô tả rõ hơn người dùng mục tiêu và nỗi đau của họ' },
+  { label: '📚 Lớp 4 — Dữ liệu nền', prompt: 'Hãy bổ sung thêm kiến thức nền và thông tin trợ lý cần biết' },
+  { label: '⚙️ Lớp 5 — Quy trình', prompt: 'Hãy định nghĩa rõ hơn các bước xử lý khi nhận yêu cầu' },
+  { label: '📋 Lớp 6 — Đầu ra', prompt: 'Hãy đặt tiêu chuẩn rõ hơn về định dạng và giọng văn đầu ra' },
+  { label: '🚧 Lớp 7 — Giới hạn', prompt: 'Hãy bổ sung giới hạn và phản hồi dự phòng khi trợ lý không biết' },
+];
+
+// ============ UTILS ============
+function genId() { return 'tl_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function genCode() {
+  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  let c = '';
+  for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random() * chars.length)];
+  return c;
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+function copyText(text, label) {
+  navigator.clipboard.writeText(text).then(() => showToast(label || '✓ Đã sao chép!'));
+}
+
+// ============ RENDER HELPERS ============
+function badgesHtml(a) {
+  let h = '';
+  if (a.need_web) h += `<span class="badge badge-web">🔎 Web</span>`;
+  if (a.need_drive) h += `<span class="badge badge-drive">📁 Drive</span>`;
+  return h;
+}
+
+function bubbleHtml(role, text, tools) {
+  const isUser = role === 'user';
+  let toolsHtml = '';
+  if (!isUser && tools && tools.length) {
+    toolsHtml = `<div class="bubble-tools">`;
+    if (tools.includes('web_search')) toolsHtml += `<span>🔎 Đã tìm kiếm web</span>`;
+    if (tools.some(t => t !== 'web_search')) toolsHtml += `<span>📁 Đã truy cập Drive</span>`;
+    toolsHtml += `</div>`;
+  }
+  return `<div class="bubble-wrap ${role}">${toolsHtml}<div class="bubble ${role}">${escHtml(text)}</div></div>`;
+}
+
+function typingHtml(label) {
+  return `<div class="typing"><span class="typing-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>${label ? `<span style="font-size:12px;color:var(--soft)">${label}</span>` : ''}</div>`;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============ SWITCH TAB ============
+function switchTab(tab) {
+  if (tab === 'library') {
+    state.view = 'library';
+    state.editingId = null;
+    document.getElementById('tab-library').classList.add('active');
+    document.getElementById('tab-create').classList.remove('active');
+  } else {
+    state.view = 'create';
+    state.createStep = 1;
+    state.blueprint = null;
+    state.editingId = null;
+    state.brainMsgs = [{
+      role: 'assistant',
+      content: 'Chào bạn! Mình là Kiến trúc sư AI 👋\n\nMình sẽ cùng bạn thiết kế một trợ lý AI riêng cho công việc của bạn — không cần biết code.\n\nTrước tiên: bạn đang làm trong lĩnh vực nào, và có vấn đề gì lặp đi lặp lại muốn AI giúp xử lý?',
+    }];
+    document.getElementById('tab-create').classList.add('active');
+    document.getElementById('tab-library').classList.remove('active');
+  }
+  render();
+}
+
+// ============ RENDER ============
+function render() {
+  const el = document.getElementById('main-content');
+  if (state.view === 'library') el.innerHTML = renderLibrary();
+  else if (state.view === 'create' && state.createStep === 1) el.innerHTML = renderCreate();
+  else if (state.view === 'create' && state.createStep === 2) el.innerHTML = renderBlueprint();
+  else if (state.view === 'run') el.innerHTML = renderRun();
+  scrollChat();
+  scrollTest();
+  if (state.pubModal) document.body.insertAdjacentHTML('beforeend', renderPubModal());
+  if (state.importOpen) document.body.insertAdjacentHTML('beforeend', renderImportModal());
+  if (state.refineOpen) document.body.insertAdjacentHTML('beforeend', renderRefinePanel());
+}
+
+function renderLibrary() {
+  const lib = state.library;
+  let cards = '';
+  if (lib.length === 0) {
+    return `
+    <div class="lib-header"><h2 class="lib-title">Thư viện trợ lý của bạn</h2><span class="lib-count">0 trợ lý</span></div>
+    <div class="lib-empty">
+      <div class="lib-empty-icon">🏗️</div>
+      <div class="lib-empty-title">Thư viện đang trống</div>
+      <p class="lib-empty-desc">Tạo trợ lý đầu tiên bằng cách trò chuyện với Kiến trúc sư AI, hoặc nhận trợ lý từ đồng nghiệp bằng mã chia sẻ.</p>
+      <div class="lib-empty-btns">
+        <button class="btn btn-primary" onclick="switchTab('create')">＋ Tạo trợ lý đầu tiên</button>
+        <button class="btn btn-outline" onclick="openImport()">⤓ Nhập mã chia sẻ</button>
+      </div>
+    </div>`;
+  }
+  for (const a of lib) {
+    cards += `
+    <div class="card">
+      <div class="card-top">
+        <span class="card-emoji">${escHtml(a.emoji)}</span>
+        <div>
+          <div class="card-name">${escHtml(a.name)}</div>
+          <div class="card-tagline">${escHtml(a.tagline)}</div>
+        </div>
+      </div>
+      <div>${badgesHtml(a)}</div>
+      <div class="card-actions">
+        <button class="btn btn-primary btn-sm" style="flex:1" onclick="startRun('${a.id}')">▶ Chạy</button>
+        <button class="btn btn-ghost btn-sm" onclick="startEdit('${a.id}')">✎ Sửa</button>
+        <button class="btn btn-ghost btn-sm" onclick="openPub('${a.id}')">🔗 Chia sẻ</button>
+        <button class="btn btn-danger btn-sm" onclick="removeAssistant('${a.id}')">Xoá</button>
+      </div>
+    </div>`;
+  }
+  return `
+  <div class="lib-header">
+    <h2 class="lib-title">Thư viện trợ lý của bạn</h2>
+    <span class="lib-count">${lib.length} trợ lý</span>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+    <button class="btn btn-primary btn-sm" onclick="switchTab('create')">＋ Tạo mới</button>
+    <button class="btn btn-outline btn-sm" onclick="openImport()">⤓ Nhận từ mã chia sẻ</button>
+  </div>
+  <div class="cta-banner">
+    <div class="cta-banner-text">
+      <div class="cta-banner-title">🌱 Muốn đi sâu hơn với AI?</div>
+      <div class="cta-banner-desc">Chương trình U40 Làm Chủ AI — biến kinh nghiệm sống thành tài sản số & nguồn thu riêng</div>
+    </div>
+    <a class="cta-banner-btn" href="https://zalo.me/0814458686" target="_blank" onclick="trackEvent('click_cta_banner',{location:'library'})">Tìm hiểu ngay →</a>
+  </div>
+  ${state.error ? `<div class="error-bar">${escHtml(state.error)}</div>` : ''}
+  <div class="lib-grid">${cards}</div>`;
+}
+
+function renderCreate() {
+  const userTurns = state.brainMsgs.filter(m => m.role === 'user').length;
+  let msgs = state.brainMsgs.map(m => bubbleHtml(m.role, m.content, m.tools)).join('');
+  if (state.loading) msgs += typingHtml();
+  if (state.building) msgs += typingHtml('Đang chế tác bản thiết kế (có thể mất 15-30 giây)...');
+
+  const chips = BRAINSTORM_CHIPS;
+  let chipsHtml = '';
+  if (userTurns === 0) {
+    chipsHtml = `<div class="chips-wrap">${chips.map((c,i) => `<button class="chip" data-idx="${i}" onclick="sendBrainstormChip(this)">${escHtml(c)}</button>`).join('')}</div>`;
+  }
+
+  const buildDisabled = userTurns < 2 || state.building || state.loading;
+  const buildStyle = buildDisabled ? 'background:#B9C4BE;color:#fff' : `background:var(--amber);color:var(--ink)`;
+
+  return `
+  ${state.error ? `<div class="error-bar">${escHtml(state.error)}</div>` : ''}
+  <div class="chat-wrap">
+    <div class="chat-messages" id="chat-msgs">
+      ${msgs}
+      ${chipsHtml}
+      <div id="chat-end"></div>
+    </div>
+    <div class="build-area">
+      <div class="build-row">
+        <input class="chat-input" id="brain-input" placeholder="Mô tả vấn đề bạn muốn AI giúp giải quyết..." onkeydown="if(event.key==='Enter')sendBrainstorm()" ${state.loading||state.building?'disabled':''}>
+        <button class="btn btn-primary" onclick="sendBrainstorm()" ${state.loading||state.building?'disabled':''}>Gửi</button>
+      </div>
+      <div class="build-action">
+        <button class="btn btn-full btn-sm" style="${buildStyle};padding:12px;font-size:15px" onclick="buildBlueprint()" ${buildDisabled?'disabled':''}>
+          ${state.building ? 'Đang chế tác bản thiết kế...' : '✦ Tạo bản thiết kế trợ lý'}
+        </button>
+        ${userTurns < 2 ? `<p class="create-hint">Trò chuyện thêm ${2 - userTurns} lượt nữa để AI hiểu rõ nhu cầu của bạn</p>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderBlueprint() {
+  const bp = state.blueprint;
+  if (!bp) return '';
+  const stampText = state.editingId ? 'ĐANG SỬA' : 'ĐÃ CHẾ TÁC';
+  return `
+  ${state.error ? `<div class="error-bar">${escHtml(state.error)}</div>` : ''}
+  <div class="blueprint-wrap">
+    <div class="stamp">${stampText}</div>
+    <div class="bp-top">
+      <div class="bp-emoji">${escHtml(bp.emoji)}</div>
+      <div style="flex:1">
+        <input class="bp-name-input" value="${escHtml(bp.name)}" oninput="bp_set('name',this.value)">
+        <input class="bp-tagline-input" value="${escHtml(bp.tagline)}" oninput="bp_set('tagline',this.value)">
+      </div>
+    </div>
+    <div class="bp-audience">Dành cho: <b style="color:var(--ink)">${escHtml(bp.audience)}</b></div>
+    <div class="bp-section-label">SIÊU NĂNG LỰC</div>
+    <div class="bp-toggles">
+      <button class="toggle-btn ${bp.need_web?'on':''}" onclick="bp_toggle('need_web')">
+        <span class="toggle-icon">🔎</span>
+        <span><span class="toggle-label">Tìm kiếm web</span><span class="toggle-desc">Trợ lý tự tra cứu thông tin mới nhất</span></span>
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+      </button>
+      <button class="toggle-btn ${bp.need_drive?'on':''}" onclick="bp_toggle('need_drive')">
+        <span class="toggle-icon">📁</span>
+        <span><span class="toggle-label">Google Drive</span><span class="toggle-desc">Trợ lý đọc được tài liệu trong Drive</span></span>
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+      </button>
+    </div>
+    <div class="bp-section-label">BỘ NÃO CỦA TRỢ LÝ (có thể chỉnh sửa)</div>
+    <textarea class="bp-prompt" rows="11" oninput="bp_set('system_prompt',this.value)">${escHtml(bp.system_prompt)}</textarea>
+    <div class="bp-section-label" style="margin-top:16px">CÂU HỎI MẪU</div>
+    <div class="bp-questions">${(bp.sample_questions||[]).map(q=>`<div class="bp-q">${escHtml(q)}</div>`).join('')}</div>
+    <div class="bp-actions">
+      <button class="btn btn-primary" style="flex:1;min-width:200px;font-size:15px" onclick="saveToLibrary(true)">💾 Lưu & chạy thử ngay</button>
+      <button class="btn btn-outline" onclick="saveToLibrary(false)">Lưu vào thư viện</button>
+      <button class="btn btn-outline" onclick="copyText(state.blueprint.system_prompt)">Sao chép prompt</button>
+      ${!state.editingId ? `<button class="btn btn-ghost" onclick="backToBrainstorm()">← Quay lại trò chuyện</button>` : `<button class="btn btn-ghost" onclick="cancelEdit()">Huỷ</button>`}
+    </div>
+  </div>`;
+}
+
+function renderRun() {
+  const a = state.runAssistant;
+  if (!a) return '';
+  let msgs = state.testMsgs.map(m => bubbleHtml(m.role, m.content, m.tools)).join('');
+  if (state.testLoading) msgs += typingHtml(a.need_web ? 'Trợ lý đang làm việc (tra cứu có thể mất thêm thời gian)...' : '');
+
+  let inner = '';
+  if (state.testMsgs.length === 0) {
+    inner = `<div class="sample-questions">
+      <div class="sq-emoji">${escHtml(a.emoji)}</div>
+      <div class="sq-title">${escHtml(a.name)} sẵn sàng!</div>
+      <p class="sq-desc">Thử hỏi một trong những câu dưới đây, hoặc tự đặt câu hỏi:</p>
+      <div class="sq-list">${(a.sample_questions||[]).map((q,i)=>`<button class="sq-btn" data-idx="${i}" onclick="sendTestSample(this)">${escHtml(q)}</button>`).join('')}</div>
+    </div>`;
+  }
+
+  return `
+  ${state.error ? `<div class="error-bar">${escHtml(state.error)}</div>` : ''}
+  <div class="chat-wrap">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <span class="chat-header-emoji">${escHtml(a.emoji)}</span>
+        <div>
+          <div class="chat-header-name">${escHtml(a.name)} ${badgesHtml(a)}</div>
+          <div class="chat-header-status">● Đang hoạt động</div>
+        </div>
+      </div>
+      <div class="chat-header-actions">
+        <button class="btn btn-ghost btn-sm" onclick="startEdit('${a.id}')">✎ Sửa</button>
+        <button class="btn btn-outline btn-sm" onclick="openRefine('${a.id}')">✦ Tinh chỉnh</button>
+        <button class="btn btn-ghost btn-sm" onclick="openPub('${a.id}')">🔗 Chia sẻ</button>
+        <button class="btn btn-ghost btn-sm" onclick="backToLibrary()">← Thư viện</button>
+      </div>
+    </div>
+    <div class="chat-messages" id="test-msgs">
+      ${inner}
+      ${msgs}
+      <div id="test-end"></div>
+    </div>
+    <div class="chat-input-area">
+      <input class="chat-input" id="test-input" placeholder="Nhắn cho ${escHtml(a.name)}..." onkeydown="if(event.key==='Enter')sendTest()" ${state.testLoading?'disabled':''}>
+      <button class="btn btn-primary" onclick="sendTest()" ${state.testLoading?'disabled':''}>Gửi</button>
+    </div>
+  </div>`;
+}
+
+function renderPubModal() {
+  const p = state.pubModal;
+  if (!p) return '';
+  if (!p.done) return `
+  <div class="modal-overlay" id="pub-modal">
+    <div class="modal-box">
+      <div class="modal-icon">🔗</div>
+      <div class="modal-title">Chia sẻ "${escHtml(p.assistant.name)}"</div>
+      <p class="modal-desc">Hệ thống sẽ tạo <b>link chia sẻ</b> và <b>mã 6 ký tự</b>. Người nhận mở link hoặc nhập mã để nhận bản sao trợ lý về thư viện của họ — bản gốc của bạn không bị ảnh hưởng.</p>
+      <div class="modal-warn">⚠ Nội dung trợ lý sẽ được lưu ở vùng chung. Đừng đưa thông tin mật vào prompt.</div>
+      <div class="modal-btns">
+        <button class="btn btn-primary" style="flex:1" onclick="doPublish()" ${p.busy?'disabled':''}>
+          ${p.busy ? 'Đang tạo...' : '🔗 Tạo link chia sẻ'}
+        </button>
+        <button class="btn btn-ghost" onclick="closePub()">Huỷ</button>
+      </div>
+    </div>
+  </div>`;
+
+  // Build share URL — domain cố định
+  const BASE_URL = 'https://xuong-ai-bamboo.vercel.app';
+  const shareUrl = BASE_URL + '?share=' + p.code + '&ref=bamboo';
+
+  return `
+  <div class="modal-overlay" id="pub-modal">
+    <div class="modal-box">
+      <div class="modal-icon">🎉</div>
+      <div class="modal-title">Đã tạo link chia sẻ!</div>
+      <p class="modal-desc" style="margin-bottom:14px">Gửi link hoặc mã bên dưới cho người bạn muốn chia sẻ:</p>
+
+      <div class="share-tabs">
+        <button class="share-tab active" id="stab-link" onclick="switchShareTab('link')">🔗 Link trực tiếp</button>
+        <button class="share-tab" id="stab-code" onclick="switchShareTab('code')">🔑 Mã 6 ký tự</button>
+      </div>
+
+      <div id="share-panel-link">
+        <div class="share-link-box">
+          <span class="share-link-url" id="share-url-text">${escHtml(shareUrl)}</span>
+          <button class="btn btn-ghost btn-sm" onclick="copyShareLink()">Sao chép</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--soft);margin-top:8px;line-height:1.5">
+          Người nhận mở link → tự động load trợ lý vào thư viện của họ. Mọi người dùng link đều thấy thương hiệu <b>Bamboo Branding</b>.
+        </div>
+      </div>
+
+      <div id="share-panel-code" style="display:none">
+        <div class="code-display">
+          <span class="code-text">${escHtml(p.code)}</span>
+          <button class="btn btn-ghost btn-sm" onclick="copyText('${escHtml(p.code)}','✓ Đã sao chép mã!')">Sao chép</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--soft);margin-top:8px;line-height:1.5">
+          Người nhận mở app → bấm "Nhận từ mã chia sẻ" → nhập mã <b>${escHtml(p.code)}</b>.
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-full" style="margin-top:16px" onclick="closePub()">Xong</button>
+    </div>
+  </div>`;
+}
+
+function renderImportModal() {
+  return `
+  <div class="modal-overlay" id="import-modal">
+    <div class="modal-box">
+      <div class="modal-icon">⤓</div>
+      <div class="modal-title">Nhận trợ lý từ đồng nghiệp</div>
+      <p class="modal-desc">Nhập mã chia sẻ 6 ký tự mà đồng nghiệp gửi cho bạn:</p>
+      <input class="import-input" id="import-code-input" placeholder="VD: K7M2XQ" maxlength="6"
+        oninput="state.importCode=this.value.toUpperCase();this.value=state.importCode"
+        onkeydown="if(event.key==='Enter')doImport()">
+      <div class="modal-btns">
+        <button class="btn btn-primary" style="flex:1" onclick="doImport()" ${state.importBusy?'disabled':''}>
+          ${state.importBusy ? 'Đang tìm...' : 'Nhận trợ lý'}
+        </button>
+        <button class="btn btn-ghost" onclick="closeImport()">Huỷ</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ============ SCROLL ============
+function scrollChat() {
+  setTimeout(() => {
+    const el = document.getElementById('chat-end');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 50);
+}
+function scrollTest() {
+  setTimeout(() => {
+    const el = document.getElementById('test-end');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 50);
+}
+
+// ============ ACTIONS ============
+function bp_set(key, val) {
+  if (state.blueprint) state.blueprint[key] = val;
+}
+function bp_toggle(key) {
+  if (state.blueprint) { state.blueprint[key] = !state.blueprint[key]; render(); }
+}
+
+async function sendBrainstorm(prefill) {
+  const inputEl = document.getElementById('brain-input');
+  const content = (prefill ?? (inputEl ? inputEl.value : '')).trim();
+  if (!content || state.loading) return;
+  state.error = '';
+  if (inputEl) inputEl.value = '';
+  const next = [...state.brainMsgs, { role: 'user', content }];
+  state.brainMsgs = next;
+  state.loading = true;
+  render();
+  try {
+    const { text } = await callClaude({ messages: next.map(({ role, content }) => ({ role, content })), system: BRAINSTORM_SYSTEM });
+    state.brainMsgs = [...next, { role: 'assistant', content: text }];
+  } catch(e) {
+    state.error = 'Không gọi được AI: ' + e.message;
+    state.brainMsgs = state.brainMsgs.slice(0, -1);
+  } finally {
+    state.loading = false;
+    render();
+  }
+}
+
+async function buildBlueprint() {
+  const userTurns = state.brainMsgs.filter(m => m.role === 'user').length;
+  if (userTurns < 2 || state.building) return;
+  state.error = ''; state.building = true; render();
+  const convo = state.brainMsgs.map(m => `${m.role === 'user' ? 'Người dùng' : 'Kiến trúc sư'}: ${m.content}`).join('\n\n');
+  let parsed = null;
+  for (let attempt = 1; attempt <= 2 && !parsed; attempt++) {
+    try {
+      const extra = attempt === 2 ? '\n\nLƯU Ý: lần trước JSON bị lỗi/quá dài. Hãy trả về JSON NGẮN GỌN HƠN, system_prompt tối đa 120 từ.' : '';
+      const { text } = await callClaude({ messages: [{ role: 'user', content: `Cuộc trò chuyện brainstorm:\n\n${convo}\n\nHãy tạo bản thiết kế JSON.${extra}` }], system: BLUEPRINT_SYSTEM });
+      parsed = extractJSON(text);
+    } catch(e) { if (attempt === 2) state.error = 'Không tạo được bản thiết kế: ' + e.message; }
+  }
+  state.building = false;
+  if (parsed) { state.blueprint = parsed; state.createStep = 2; }
+  render();
+}
+
+function saveToLibrary(andRun) {
+  const bp = state.blueprint;
+  if (!bp) return;
+  if (state.editingId) {
+    const idx = state.library.findIndex(a => a.id === state.editingId);
+    if (idx !== -1) state.library[idx] = { ...state.library[idx], ...bp };
+  } else {
+    state.library.unshift({ ...bp, id: genId() });
+    trackEvent('create_assistant', { assistant_name: bp.name });
+  }
+  saveLib();
+  const saved = state.library.find(a => a.name === bp.name) || state.library[0];
+  if (andRun) {
+    state.runAssistant = saved;
+    state.testMsgs = [];
+    state.view = 'run';
+    state.editingId = null;
+    document.getElementById('tab-library').classList.add('active');
+    document.getElementById('tab-create').classList.remove('active');
+  } else {
+    state.view = 'library';
+    state.editingId = null;
+    document.getElementById('tab-library').classList.add('active');
+    document.getElementById('tab-create').classList.remove('active');
+    showToast('✓ Đã lưu vào thư viện!');
+  }
+  render();
+}
+
+function backToBrainstorm() { state.createStep = 1; state.blueprint = null; render(); }
+function cancelEdit() { state.view = 'library'; state.editingId = null; render(); }
+function backToLibrary() { state.view = 'library'; render(); }
+
+function startRun(id) {
+  const a = state.library.find(x => x.id === id);
+  if (!a) return;
+  state.runAssistant = a;
+  state.testMsgs = [];
+  state.view = 'run';
+  document.getElementById('tab-library').classList.add('active');
+  document.getElementById('tab-create').classList.remove('active');
+  render();
+}
+
+function startEdit(id) {
+  const a = state.library.find(x => x.id === id);
+  if (!a) return;
+  state.blueprint = { ...a };
+  state.editingId = id;
+  state.createStep = 2;
+  state.view = 'create';
+  document.getElementById('tab-create').classList.add('active');
+  document.getElementById('tab-library').classList.remove('active');
+  render();
+}
+
+function removeAssistant(id) {
+  if (!confirm('Xoá trợ lý này?')) return;
+  state.library = state.library.filter(a => a.id !== id);
+  saveLib();
+  render();
+}
+
+async function sendTest(prefill) {
+  const inputEl = document.getElementById('test-input');
+  const content = (prefill ?? (inputEl ? inputEl.value : '')).trim();
+  if (!content || state.testLoading) return;
+  const a = state.runAssistant;
+  if (!a) return;
+  state.error = '';
+  if (inputEl) inputEl.value = '';
+  const next = [...state.testMsgs, { role: 'user', content }];
+  state.testMsgs = next;
+  state.testLoading = true;
+  render();
+  try {
+    const msgs = next.map(({ role, content }) => ({ role, content }));
+    const { text, toolsUsed } = await callClaude({ messages: msgs, system: a.system_prompt, useWeb: a.need_web });
+    state.testMsgs = [...next, { role: 'assistant', content: text, tools: toolsUsed }];
+  } catch(e) {
+    state.error = 'Không gọi được AI: ' + e.message;
+    state.testMsgs = next.slice(0, -1);
+  } finally {
+    state.testLoading = false;
+    render();
+  }
+}
+
+// ============ SHARE / IMPORT ============
+// Dùng shared storage nếu có (Claude artifact), fallback localStorage key
+const SHARE_PREFIX = 'xuong_share_';
+
+function openPub(id) {
+  const a = state.library.find(x => x.id === id);
+  if (!a) return;
+  state.pubModal = { assistant: a, code: '', done: false, busy: false };
+  render();
+  document.body.insertAdjacentHTML('beforeend', renderPubModal());
+}
+function closePub() {
+  state.pubModal = null;
+  const el = document.getElementById('pub-modal');
+  if (el) el.remove();
+}
+async function doPublish() {
+  if (!state.pubModal) return;
+  state.pubModal.busy = true;
+  const el = document.getElementById('pub-modal');
+  if (el) el.remove();
+  document.body.insertAdjacentHTML('beforeend', renderPubModal());
+  const code = genCode();
+  try {
+    const key = SHARE_PREFIX + code;
+    if (window.storage) {
+      await window.storage.set(key, JSON.stringify(state.pubModal.assistant), true);
+    } else {
+      localStorage.setItem(key, JSON.stringify(state.pubModal.assistant));
+    }
+    state.pubModal = { ...state.pubModal, code, done: true, busy: false };
+    trackEvent('share_assistant', { assistant_name: state.pubModal?.assistant?.name, code });
+  } catch(e) {
+    state.pubModal = null;
+    showToast('Không tạo được mã: ' + e.message);
+  }
+  const el2 = document.getElementById('pub-modal');
+  if (el2) el2.remove();
+  if (state.pubModal) document.body.insertAdjacentHTML('beforeend', renderPubModal());
+}
+
+function openImport() {
+  state.importOpen = true;
+  state.importCode = '';
+  render();
+  document.body.insertAdjacentHTML('beforeend', renderImportModal());
+}
+function closeImport() {
+  state.importOpen = false;
+  state.importCode = '';
+  const el = document.getElementById('import-modal');
+  if (el) el.remove();
+}
+async function doImport() {
+  const code = (document.getElementById('import-code-input')?.value || state.importCode).trim().toUpperCase();
+  if (code.length < 6) return;
+  state.importBusy = true;
+  try {
+    const key = SHARE_PREFIX + code;
+    let data;
+    if (window.storage) {
+      const r = await window.storage.get(key, true);
+      data = JSON.parse(r.value);
+    } else {
+      const v = localStorage.getItem(key);
+      if (!v) throw new Error('Không tìm thấy mã ' + code);
+      data = JSON.parse(v);
+    }
+    state.library.unshift({ ...data, id: genId() });
+    saveLib();
+    closeImport();
+    state.importBusy = false;
+    trackEvent('import_assistant', { assistant_name: data.name, code });
+    showToast('✓ Đã nhận trợ lý vào thư viện!');
+    render();
+  } catch(e) {
+    state.importBusy = false;
+    showToast('Không tìm thấy mã: ' + code);
+    const el = document.getElementById('import-modal');
+    if (el) el.remove();
+    document.body.insertAdjacentHTML('beforeend', renderImportModal());
+  }
+}
+
+// ============ REFINE PANEL ============
+function renderRefinePanel() {
+  const a = state.runAssistant;
+  if (!a) return '';
+
+  let msgsHtml = state.refineMsgs.map((m, idx) => {
+    if (m.role === 'pending') {
+      return `<div class="refine-pending">
+        <div class="refine-pending-label">✦ ĐỀ XUẤT CẬP NHẬT PROMPT</div>
+        <div class="refine-pending-explanation">${escHtml(m.explanation)}</div>
+        <div class="refine-pending-prompt">${escHtml(m.system_prompt)}</div>
+        <div class="refine-pending-actions">
+          <button class="btn btn-primary btn-sm" onclick="applyRefinement()">✓ Áp dụng ngay</button>
+          <button class="btn btn-ghost btn-sm" onclick="discardRefinement()">Bỏ qua</button>
+          <button class="btn btn-ghost btn-sm" onclick="copyPendingPrompt()">Sao chép prompt</button>
+        </div>
+      </div>`;
+    }
+    return bubbleHtml(m.role, m.content);
+  }).join('');
+
+  if (state.refineLoading) msgsHtml += typingHtml('Đang phân tích và cập nhật prompt...');
+
+  const shortcuts = LAYER_SHORTCUTS.map((s, i) =>
+    `<button class="layer-tag" data-idx="${i}" onclick="sendRefineShortcut(this)">${escHtml(s.label)}</button>`
+  ).join('');
+
+  const isEmpty = state.refineMsgs.length === 0;
+
+  return `
+  <div class="refine-overlay" id="refine-overlay" onclick="if(event.target===this)closeRefine()">
+    <div class="refine-panel">
+      <div class="refine-header">
+        <div>
+          <div class="refine-title">✦ Tinh chỉnh "${escHtml(a.name)}"</div>
+          <div class="refine-subtitle">Mô tả điều bạn muốn thay đổi — AI sẽ cập nhật prompt theo Framework 7 Lớp</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closeRefine()">✕ Đóng</button>
+      </div>
+
+      <div class="refine-msgs" id="refine-msgs">
+        ${isEmpty ? `
+        <div style="padding:16px 0 10px">
+          <div style="font-size:12px;font-weight:700;color:var(--soft);letter-spacing:.06em;margin-bottom:8px">TINH CHỈNH NHANH THEO LỚP</div>
+          <div class="layer-tags">${shortcuts}</div>
+          <div style="height:1px;background:var(--line);margin:14px 0"></div>
+          <div style="font-size:12px;color:var(--soft);margin-bottom:8px">Hoặc mô tả tự do điều bạn muốn thay đổi:</div>
+          <div class="bubble assistant" style="max-width:100%;border-left-color:var(--amber)">Prompt hiện tại của trợ lý đang được nạp sẵn. Bạn có thể yêu cầu chỉnh sửa bất kỳ điều gì — ví dụ: "Làm cho trợ lý trả lời ngắn hơn", "Thêm bước hỏi lại trước khi trả lời", "Giọng văn thân thiện hơn với người mới", "Bổ sung quy trình xử lý khi khách phàn nàn"...</div>
+        </div>` : msgsHtml}
+        ${!isEmpty ? msgsHtml : ''}
+        <div id="refine-end"></div>
+      </div>
+
+      <div class="refine-input-area">
+        <input class="chat-input" id="refine-input"
+          placeholder="Mô tả điều bạn muốn thay đổi ở trợ lý..."
+          onkeydown="if(event.key==='Enter')sendRefine()"
+          ${state.refineLoading ? 'disabled' : ''}>
+        <button class="btn btn-amber" onclick="sendRefine()" ${state.refineLoading ? 'disabled' : ''}>Gửi</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function sendRefineShortcut(btn) {
+  const idx = parseInt(btn.getAttribute('data-idx'), 10);
+  const s = LAYER_SHORTCUTS[idx];
+  if (s) sendRefine(s.prompt);
+}
+
+function sendBrainstormChip(btn) {
+  const idx = parseInt(btn.getAttribute('data-idx'), 10);
+  const c = BRAINSTORM_CHIPS[idx];
+  if (c) sendBrainstorm(c);
+}
+
+function sendTestSample(btn) {
+  const idx = parseInt(btn.getAttribute('data-idx'), 10);
+  const a = state.runAssistant;
+  if (!a) return;
+  const q = (a.sample_questions || [])[idx];
+  if (q) sendTest(q);
+}
+
+function openRefine(id) {
+  const a = state.library.find(x => x.id === id) || state.runAssistant;
+  if (!a) return;
+  state.runAssistant = a;
+  state.refineOpen = true;
+  state.refineMsgs = [];
+  state.refinePending = null;
+  render();
+  document.body.insertAdjacentHTML('beforeend', renderRefinePanel());
+  setTimeout(() => document.getElementById('refine-input')?.focus(), 100);
+}
+
+function closeRefine() {
+  state.refineOpen = false;
+  state.refineMsgs = [];
+  state.refinePending = null;
+  const el = document.getElementById('refine-overlay');
+  if (el) el.remove();
+}
+
+function scrollRefine() {
+  setTimeout(() => {
+    const el = document.getElementById('refine-end');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 50);
+}
+
+async function sendRefine(prefill) {
+  const inputEl = document.getElementById('refine-input');
+  const content = (prefill ?? (inputEl ? inputEl.value : '')).trim();
+  if (!content || state.refineLoading) return;
+  if (inputEl) inputEl.value = '';
+
+  const a = state.runAssistant;
+  if (!a) return;
+
+  // Thêm tin nhắn người dùng
+  state.refineMsgs = [...state.refineMsgs.filter(m => m.role !== 'pending'), { role: 'user', content }];
+  state.refineLoading = true;
+  const el = document.getElementById('refine-overlay');
+  if (el) el.remove();
+  document.body.insertAdjacentHTML('beforeend', renderRefinePanel());
+  scrollRefine();
+
+  try {
+    // Build context: prompt hiện tại + lịch sử chat tinh chỉnh
+    const history = state.refineMsgs
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .map(m => ({ role: m.role, content: m.content }));
+
+    // Thêm context prompt hiện tại vào system
+    const systemWithContext = REFINE_SYSTEM + `\n\nPROMPT HIỆN TẠI CỦA TRỢ LÝ "${a.name}":\n"""\n${a.system_prompt}\n"""`;
+
+    const { text } = await callClaude({
+      messages: history,
+      system: systemWithContext,
+    });
+
+    // Parse JSON response
+    let parsed = null;
+    try { parsed = extractJSON(text); } catch(e) {}
+
+    if (parsed && parsed.system_prompt) {
+      state.refineMsgs = [
+        ...state.refineMsgs,
+        { role: 'assistant', content: parsed.explanation || 'Mình đã cập nhật prompt theo yêu cầu.' },
+        { role: 'pending', system_prompt: parsed.system_prompt, explanation: parsed.explanation || 'Prompt đã được cập nhật theo Framework 7 Lớp.' }
+      ];
+    } else {
+      // Fallback: trả lời text thường nếu không parse được JSON
+      state.refineMsgs = [...state.refineMsgs, { role: 'assistant', content: text }];
+    }
+  } catch(e) {
+    state.refineMsgs = [...state.refineMsgs, { role: 'assistant', content: 'Có lỗi xảy ra: ' + e.message + '. Bạn thử lại nhé.' }];
+  } finally {
+    state.refineLoading = false;
+    const el2 = document.getElementById('refine-overlay');
+    if (el2) el2.remove();
+    document.body.insertAdjacentHTML('beforeend', renderRefinePanel());
+    scrollRefine();
+  }
+}
+
+function applyRefinement() {
+  const pending = state.refineMsgs.find(m => m.role === 'pending');
+  if (!pending) return;
+  const newPrompt = pending.system_prompt;
+  const a = state.runAssistant;
+  if (!a || !newPrompt) return;
+
+  // Cập nhật trong library
+  const idx = state.library.findIndex(x => x.id === a.id);
+  if (idx !== -1) {
+    state.library[idx] = { ...state.library[idx], system_prompt: newPrompt };
+    state.runAssistant = state.library[idx];
+    saveLib();
+  }
+
+  // Xoá pending, thêm xác nhận
+  state.refineMsgs = state.refineMsgs
+    .filter(m => m.role !== 'pending')
+    .concat([{ role: 'assistant', content: '✅ Đã áp dụng! Prompt của trợ lý đã được cập nhật theo Framework 7 Lớp.\n\nBạn có thể chạy thử ngay bên dưới để kiểm tra, hoặc tiếp tục yêu cầu tinh chỉnh thêm.' }]);
+
+  const el = document.getElementById('refine-overlay');
+  if (el) el.remove();
+  document.body.insertAdjacentHTML('beforeend', renderRefinePanel());
+  scrollRefine();
+  showToast('✓ Đã cập nhật prompt thành công!');
+}
+
+function copyPendingPrompt() {
+  const pending = state.refineMsgs.find(m => m.role === 'pending');
+  if (pending) copyText(pending.system_prompt, '✓ Đã sao chép prompt!');
+}
+
+function discardRefinement() {
+  state.refineMsgs = state.refineMsgs.filter(m => m.role !== 'pending');
+  state.refineMsgs.push({ role: 'assistant', content: 'Đã bỏ qua đề xuất. Bạn muốn điều chỉnh gì thêm không?' });
+  const el = document.getElementById('refine-overlay');
+  if (el) el.remove();
+  document.body.insertAdjacentHTML('beforeend', renderRefinePanel());
+  scrollRefine();
+}
+
+function switchShareTab(tab) {
+  document.getElementById('stab-link').classList.toggle('active', tab === 'link');
+  document.getElementById('stab-code').classList.toggle('active', tab === 'code');
+  document.getElementById('share-panel-link').style.display = tab === 'link' ? '' : 'none';
+  document.getElementById('share-panel-code').style.display = tab === 'code' ? '' : 'none';
+}
+
+function copyShareLink() {
+  const el = document.getElementById('share-url-text');
+  if (el) copyText(el.textContent, '✓ Đã sao chép link chia sẻ!');
+}
+
+// Tự động import khi mở link có ?share=CODE
+async function checkShareParam() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('share');
+  if (!code) return;
+  try {
+    const key = SHARE_PREFIX + code.toUpperCase();
+    let data;
+    if (window.storage) {
+      const r = await window.storage.get(key, true);
+      data = JSON.parse(r.value);
+    } else {
+      const v = localStorage.getItem(key);
+      if (!v) return;
+      data = JSON.parse(v);
+    }
+    // Kiểm tra chưa có trong thư viện
+    const already = state.library.some(a => a.name === data.name && a.tagline === data.tagline);
+    if (!already) {
+      state.library.unshift({ ...data, id: genId() });
+      saveLib();
+      trackEvent('import_via_link', { assistant_name: data.name, code });
+      showToast('🎉 Đã nhận trợ lý "' + data.name + '" vào thư viện!');
+      render();
+    }
+    // Xoá param khỏi URL để không import lại khi reload
+    window.history.replaceState({}, '', window.location.pathname);
+  } catch(e) {
+    // Không tìm thấy hoặc lỗi — bỏ qua
+  }
+}
+
+// ============ INIT ============
+render();
+checkShareParam();
+</script>
+</body>
+</html>
