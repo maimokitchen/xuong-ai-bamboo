@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   if (!apiKey) return res.status(500).json({ error: 'API key chưa được cấu hình' });
 
   try {
-    const { messages, system, model = 'gemini-2.0-flash' } = req.body;
+    const { messages, system, model = 'gemini-3.5-flash' } = req.body;
 
     // Chuyển messages sang format Gemini
     const contents = [];
