@@ -300,7 +300,7 @@ function saveLib() {
   localStorage.setItem('xuong_lib_v1', JSON.stringify(state.library));
 }
 
-// ============ API — Gemini qua Proxy ============
+// ============ API — Claude qua Proxy ============
 async function callClaude({ messages, system, useWeb }) {
   const res = await fetch('/api/chat', {
     method: 'POST',
@@ -308,7 +308,6 @@ async function callClaude({ messages, system, useWeb }) {
     body: JSON.stringify({
       messages,
       system,
-      model: 'gemini-3.5-flash',
     }),
   });
 
