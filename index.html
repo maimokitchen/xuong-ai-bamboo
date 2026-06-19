@@ -282,7 +282,7 @@ const LAYER_SHORTCUTS = [
 ];
 
 const BRAINSTORM_SYSTEM = "Ban la Kien truc su tro ly AI - chuyen gia tu van than thien, noi tieng Viet tu nhien, giup nguoi dung (KHONG biet code) thiet ke mot tro ly AI giai quyet van de cu the trong cong viec cua ho.\n\nNhiem vu:\n1. Hieu ro: nganh nghe, van de cu the, ai se dung tro ly, tro ly can lam gi hang ngay.\n2. Moi luot CHI hoi 1 cau hoi, ngan gon, kem vi du goi y trong ngoac.\n3. Neu nguoi dung mo ho, goi y 2-3 huong cu the de ho chon.\n4. Sau 3-5 luot da du thong tin, tom tat ngan bang gach dau dong va noi: Minh da du thong tin roi! Ban bam nut Tao ban thiet ke ben duoi nhe.\n\nGiong van: gan gui, khich le, khong thuat ngu ky thuat. Tra loi duoi 120 tu moi luot. Luon viet tieng Viet co dau day du.";
-const BLUEPRINT_SYSTEM = "Ban la chuyen gia thiet ke tro ly AI. Dua tren cuoc tro chuyen brainstorm, tao ban thiet ke theo Framework 7 Lop.\n\nCHI tra ve JSON hop le, KHONG loi mo dau, KHONG markdown backticks:\n{\"name\":\"Ten tro ly ngan gon tieng Viet\",\"emoji\":\"1 emoji\",\"tagline\":\"1 cau mo ta nhiem vu\",\"audience\":\"Ai su dung\",\"need_web\":false,\"need_drive\":false,\"system_prompt\":\"LOP 1 VAI TRO: [ten vai tro va chuyen mon].\\nLOP 2 MUC TIEU: Nhiem vu chinh la [lam gi cu the].\\nLOP 3 NGUOI DUNG: [ai dung], can [ket qua gi].\\nLOP 4 DU LIEU NEN: Hieu san [thong tin nen].\\nLOP 5 QUY TRINH: Khi nhan yeu cau: [buoc 1] -> [buoc 2] -> [buoc 3].\\nLOP 6 DAU RA: Tra loi phai [dinh dang, giong van, do dai].\\nLOP 7 GIOI HAN: Khong lam [dieu X]. Neu khong biet: [phan hoi du phong].\",\"sample_questions\":[\"cau hoi mau 1\",\"cau hoi mau 2\",\"cau hoi mau 3\"]}\n\nQUAN TRONG: system_prompt toi da 220 tu. JSON phai hop le hoan toan. Viet tieng Viet co dau trong tat ca cac truong.";
+const BLUEPRINT_SYSTEM = "Ban la chuyen gia thiet ke tro ly AI. Dua tren cuoc tro chuyen brainstorm, tao ban thiet ke theo Framework 7 Lop.\n\nCHI tra ve JSON hop le, KHONG loi mo dau, KHONG markdown backticks:\n{\"name\":\"Ten tro ly ngan gon tieng Viet\",\"emoji\":\"1 emoji\",\"tagline\":\"1 cau mo ta nhiem vu\",\"audience\":\"Ai su dung\",\"system_prompt\":\"LOP 1 VAI TRO: [ten vai tro va chuyen mon].\\nLOP 2 MUC TIEU: Nhiem vu chinh la [lam gi cu the].\\nLOP 3 NGUOI DUNG: [ai dung], can [ket qua gi].\\nLOP 4 DU LIEU NEN: Hieu san [thong tin nen].\\nLOP 5 QUY TRINH: Khi nhan yeu cau: [buoc 1] -> [buoc 2] -> [buoc 3].\\nLOP 6 DAU RA: Tra loi phai [dinh dang, giong van, do dai].\\nLOP 7 GIOI HAN: Khong lam [dieu X]. Neu khong biet: [phan hoi du phong].\",\"sample_questions\":[\"cau hoi mau 1\",\"cau hoi mau 2\",\"cau hoi mau 3\"]}\n\nQUAN TRONG: system_prompt toi da 220 tu. JSON phai hop le hoan toan. Viet tieng Viet co dau trong tat ca cac truong.";
 const REFINE_SYSTEM = "Ban la chuyen gia tinh chinh tro ly AI theo Framework 7 Lop. Nguoi dung dua ra yeu cau chinh sua - ban hieu y dinh, cap nhat system_prompt, tra ve ban moi.\n\nFramework 7 Lop can du: Vai tro, Muc tieu, Nguoi dung, Du lieu nen, Quy trinh xu ly, Tieu chuan dau ra, Gioi han.\n\nCHI tra ve JSON, KHONG backticks: {\"explanation\":\"1-2 cau giai thich thay doi\",\"system_prompt\":\"[cap nhat du 7 lop, toi da 220 tu, tieng Viet co dau]\"}";
 
 // ============ UTILS ============
@@ -448,7 +448,7 @@ async function saveToLibrary(andRun) {
   const userId = state.session.user.id;
   const payload = {
     user_id: userId, name: bp.name, emoji: bp.emoji, tagline: bp.tagline, audience: bp.audience,
-    need_web: !!bp.need_web, need_drive: !!bp.need_drive, system_prompt: bp.system_prompt,
+    system_prompt: bp.system_prompt, context_data: bp.context_data || '',
     sample_questions: bp.sample_questions || [],
   };
   let saved;
@@ -492,7 +492,9 @@ function startEdit(a) {
   render();
 }
 function startRun(a) {
-  state.runAssistant = a; state.testMsgs = []; state.view = 'run'; render();
+  state.runAssistant = a;
+  state.testMsgs = Array.isArray(a.chat_history) ? a.chat_history : [];
+  state.view = 'run'; render();
 }
 function backToLibrary() { state.view = 'library'; render(); }
 function backToBrainstorm() { state.createStep = 1; state.blueprint = null; render(); }
@@ -556,12 +558,48 @@ async function sendTest(prefillOrBtn) {
   const next = [...state.testMsgs, { role: 'user', content }];
   state.testMsgs = next; state.testLoading = true; render();
   try {
-    const { text } = await callClaude({ messages: next.map(({role,content})=>({role,content})), system: a.system_prompt });
+    const fullSystem = a.context_data?.trim()
+      ? `${a.system_prompt}\n\n[DỮ LIỆU NỀN BỔ SUNG]\n${a.context_data}`
+      : a.system_prompt;
+    const { text } = await callClaude({ messages: next.map(({role,content})=>({role,content})), system: fullSystem });
     state.testMsgs = [...next, { role: 'assistant', content: text }];
+    await persistChatHistory(a.id, state.testMsgs);
   } catch(e) {
     state.error = 'Không gọi được AI: ' + e.message;
     state.testMsgs = next.slice(0, -1);
   } finally { state.testLoading = false; render(); }
+}
+
+// Lưu lịch sử hội thoại vào Supabase (Cách B - 1 luồng/trợ lý)
+async function persistChatHistory(assistantId, msgs) {
+  try {
+    await sb.from('assistants').update({ chat_history: msgs }).eq('id', assistantId);
+    // Cập nhật cache cục bộ để không bị lệch khi quay lại thư viện
+    const idx = state.library.findIndex(x => x.id === assistantId);
+    if (idx !== -1) state.library[idx].chat_history = msgs;
+    if (state.runAssistant?.id === assistantId) state.runAssistant.chat_history = msgs;
+  } catch (e) {
+    console.error('Không lưu được lịch sử hội thoại:', e.message);
+  }
+}
+
+// Copy toàn bộ hội thoại hiện tại
+function copyFullConversation() {
+  const msgs = state.testMsgs;
+  if (!msgs.length) { showToast('Chưa có hội thoại để sao chép'); return; }
+  const text = msgs.map(m => `${m.role === 'user' ? 'Bạn' : 'Trợ lý'}: ${m.content}`).join('\n\n');
+  copyText(text, '✓ Đã sao chép toàn bộ hội thoại!');
+}
+
+// Bắt đầu cuộc trò chuyện mới — xoá lịch sử, có xác nhận
+async function startNewConversation() {
+  if (!state.testMsgs.length) return; // không có gì để xoá
+  if (!confirm('Lịch sử trò chuyện hiện tại sẽ bị xoá vĩnh viễn. Tiếp tục?')) return;
+  const a = state.runAssistant; if (!a) return;
+  state.testMsgs = [];
+  await persistChatHistory(a.id, []);
+  showToast('✓ Đã bắt đầu cuộc trò chuyện mới');
+  render();
 }
 
 // ============ SHARE / IMPORT ============
@@ -709,10 +747,7 @@ function typingHtml(label) {
   return `<div class="typing"><span class="typing-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>${label?`<span style="font-size:12px;color:var(--soft)">${label}</span>`:''}</div>`;
 }
 function badgesHtml(a) {
-  let h = '';
-  if (a.need_web) h += `<span class="badge badge-web">🔎 Web</span>`;
-  if (a.need_drive) h += `<span class="badge badge-drive">📁 Drive</span>`;
-  return h;
+  return ''; // Web/Drive toggles đã loại bỏ - chưa tích hợp tool thật
 }
 function headerHtml() {
   if (!state.session) return '';
@@ -879,21 +914,10 @@ function renderCreate() {
         </div>
       </div>
       <div class="bp-audience">Dành cho: <b style="color:var(--ink)">${escHtml(bp.audience||'')}</b></div>
-      <div class="bp-section-label">SIÊU NĂNG LỰC</div>
-      <div class="bp-toggles">
-        <button class="toggle-btn ${bp.need_web?'on':''}" onclick="bp_toggle('need_web')">
-          <span class="toggle-icon">🔎</span>
-          <span><span class="toggle-label">Tìm kiếm web</span><span class="toggle-desc">Thiết lập tham khảo cho trợ lý</span></span>
-          <span class="toggle-track"><span class="toggle-thumb"></span></span>
-        </button>
-        <button class="toggle-btn ${bp.need_drive?'on':''}" onclick="bp_toggle('need_drive')">
-          <span class="toggle-icon">📁</span>
-          <span><span class="toggle-label">Google Drive</span><span class="toggle-desc">Thiết lập tham khảo cho trợ lý</span></span>
-          <span class="toggle-track"><span class="toggle-thumb"></span></span>
-        </button>
-      </div>
       <div class="bp-section-label">BỘ NÃO CỦA TRỢ LÝ (Framework 7 Lớp)</div>
       <textarea class="bp-prompt" rows="11" oninput="bp_set('system_prompt',this.value)">${escHtml(bp.system_prompt)}</textarea>
+      <div class="bp-section-label" style="margin-top:16px">DỮ LIỆU NỀN BỔ SUNG <span style="font-weight:400;color:var(--soft);text-transform:none;letter-spacing:0">(tuỳ chọn — dán hồ sơ khách hàng, giọng văn, thông tin sản phẩm... trợ lý sẽ dùng khi trả lời)</span></div>
+      <textarea class="bp-prompt" rows="6" placeholder="Ví dụ: Thông tin sản phẩm, bảng giá, giọng văn thương hiệu, hồ sơ khách hàng mục tiêu..." oninput="bp_set('context_data',this.value)">${escHtml(bp.context_data||'')}</textarea>
       <div class="bp-section-label" style="margin-top:16px">CÂU HỎI MẪU</div>
       <div class="bp-questions">${(bp.sample_questions||[]).map(q=>`<div class="bp-q">${escHtml(q)}</div>`).join('')}</div>
       <div class="bp-actions">
@@ -947,6 +971,8 @@ function renderRun() {
         <div><div class="chat-header-name">${escHtml(a.name)} ${badgesHtml(a)}</div><div class="chat-header-status">● Đang hoạt động</div></div>
       </div>
       <div class="chat-header-actions">
+        <button class="btn btn-ghost btn-sm" onclick="copyFullConversation()">📋 Copy hội thoại</button>
+        <button class="btn btn-ghost btn-sm" onclick="startNewConversation()">🔄 Trò chuyện mới</button>
         <button class="btn btn-ghost btn-sm" data-aid="${a.id}" onclick="startEditById(this)">✎ Sửa</button>
         <button class="btn btn-outline btn-sm" data-aid="${a.id}" onclick="openRefineById(this)">✦ Tinh chỉnh</button>
         <button class="btn btn-ghost btn-sm" data-aid="${a.id}" onclick="openPubById(this)">🔗 Chia sẻ</button>
