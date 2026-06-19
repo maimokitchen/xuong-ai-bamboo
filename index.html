@@ -583,13 +583,6 @@ async function persistChatHistory(assistantId, msgs) {
   }
 }
 
-// Copy toàn bộ hội thoại hiện tại
-function copyFullConversation() {
-  const msgs = state.testMsgs;
-  if (!msgs.length) { showToast('Chưa có hội thoại để sao chép'); return; }
-  const text = msgs.map(m => `${m.role === 'user' ? 'Bạn' : 'Trợ lý'}: ${m.content}`).join('\n\n');
-  copyText(text, '✓ Đã sao chép toàn bộ hội thoại!');
-}
 
 // Bắt đầu cuộc trò chuyện mới — xoá lịch sử, có xác nhận
 async function startNewConversation() {
@@ -971,7 +964,6 @@ function renderRun() {
         <div><div class="chat-header-name">${escHtml(a.name)} ${badgesHtml(a)}</div><div class="chat-header-status">● Đang hoạt động</div></div>
       </div>
       <div class="chat-header-actions">
-        <button class="btn btn-ghost btn-sm" onclick="copyFullConversation()">📋 Copy hội thoại</button>
         <button class="btn btn-ghost btn-sm" onclick="startNewConversation()">🔄 Trò chuyện mới</button>
         <button class="btn btn-ghost btn-sm" data-aid="${a.id}" onclick="startEditById(this)">✎ Sửa</button>
         <button class="btn btn-outline btn-sm" data-aid="${a.id}" onclick="openRefineById(this)">✦ Tinh chỉnh</button>
